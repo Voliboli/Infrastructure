@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voliboli
+spec:
+  selector:
+    matchLabels:
+      run: voliboli
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: voliboli
+    spec:
+      containers:
+      - name: voliboli
+        image: dorkamotorka/voliboli:1.0
+        ports:
+        - containerPort: 8501
+      imagePullSecrets:
+      - name: regcred
