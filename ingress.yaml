@@ -2,39 +2,25 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx-ingress-microk8s
-  namespace: ingress
   annotations:
-    kubernetes.io/ingress.class: "nginx"
-    nginx.ingress.kubernetes.io/rewrite-target: /
-#    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: lets-encrypt
+    nginx.ingress.kubernetes.io/affinity: "cookie"
+    nginx.ingress.kubernetes.io/session-cookie-name: "http-cookie"
+    nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
+    nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
 spec:
+  tls:
+    - hosts: 
+      - voliboli.lrk.si
+      secretName: lets-encrypt-private-key 
   rules:
-  - http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: voliboli
-            port:
-              number: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ingress
-  namespace: ingress
-spec:
-  selector:
-    name: nginx-ingress-microk8s
-  type: LoadBalancer
-  loadBalancerIP: 88.200.23.239
-  ports:
-    - name: http
-      protocol: TCP
-      port: 80
-      targetPort: 80
-    - name: https
-      protocol: TCP
-      port: 443
-      targetPort: 443
+    - host: voliboli.lrk.si
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: voliboli
+              port:
+                number: 80

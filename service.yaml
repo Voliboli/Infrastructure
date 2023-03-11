@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: voliboli
   labels:
-    run: voliboli
+    app: voliboli
 spec:
   ports:
-  - port: 80
-    protocol: TCP
+    - port: 80
   selector:
-    run: voliboli
+    app: voliboli
