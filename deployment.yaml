@@ -8,16 +8,23 @@ spec:
   selector:
     matchLabels:
       app: voliboli
-  replicas: 2
+  replicas: 3
   template:
     metadata:
       labels:
         app: voliboli
     spec:
+      volumes:
+      - name: voliboli-pv-storage
+        persistentVolumeClaim:
+          claimName: voliboli-pvc
       containers:
       - name: voliboli
-        image: dorkamotorka/voliboli:1.1
+        image: dorkamotorka/voliboli:1.13
         ports:
         - containerPort: 80
+        volumeMounts:
+        - mountPath: "/usr/src/voliboli/auth"
+          name: voliboli-pv-storage
       imagePullSecrets:
       - name: regcred
