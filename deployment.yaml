@@ -20,7 +20,7 @@ spec:
           claimName: voliboli-pvc
       containers:
       - name: voliboli
-        image: dorkamotorka/voliboli:1.13
+        image: dorkamotorka/voliboli:1.16
         ports:
         - containerPort: 80
         volumeMounts:
