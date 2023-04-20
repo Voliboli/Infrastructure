@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: voliboli
+  namespace: voliboli
   labels:
     app: voliboli
 spec:
@@ -17,7 +18,7 @@ spec:
       volumes:
       - name: voliboli-pv-storage
         persistentVolumeClaim:
-          claimName: voliboli-pvc
+          claimName: voliboli-auth-pvc
       containers:
       - name: voliboli
         image: dorkamotorka/voliboli:1.16
