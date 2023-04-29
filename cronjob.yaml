@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: voliboli-sequential-jobs
+  namespace: voliboli
+spec:
+  schedule: "0 0 * * 4,6" # Run every Wednesday and Saturday at midnight 
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      completions: 1
+      completionMode: NonIndexed
+      template:
+        spec:
+          initContainers:
+            - name: webscraping-job
+              image: dorkamotorka/voliboli-webscraper
+              volumeMounts:
+                - name: voliboli-data
+                  mountPath: "/usr/src/voliboli/data/raw"
+            - name: pdfscraping-job
+              image: dorkamotorka/voliboli-pdfscraper
+              volumeMounts:
+                - name: voliboli-data
+                  mountPath: "/usr/src/voliboli/stats"
+          containers:
+            - name: job-done
+              image: busybox
+              command: ['sh', '-c', 'echo "WebScraping and PDFScraping jobs completed"']
+          volumes:
+          - name: voliboli-data
+            persistentVolumeClaim:
+              claimName: voliboli-cronjob-pvc
+        restartPolicy: Never
