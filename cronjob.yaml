@@ -15,12 +15,12 @@ spec:
         spec:
           initContainers:
             - name: webscraping-job
-              image: dorkamotorka/voliboli-webscraper
+              image: dorkamotorka/voliboli-webscraper:2.0
               volumeMounts:
                 - name: voliboli-data
                   mountPath: "/usr/src/voliboli/data/raw"
             - name: pdfscraping-job
-              image: dorkamotorka/voliboli-pdfscraper
+              image: dorkamotorka/voliboli-pdfscraper:2.0
               volumeMounts:
                 - name: voliboli-data
                   mountPath: "/usr/src/voliboli/stats"
@@ -28,8 +28,8 @@ spec:
             - name: job-done
               image: busybox
               command: ['sh', '-c', 'echo "WebScraping and PDFScraping jobs completed"']
+          restartPolicy: Never
           volumes:
           - name: voliboli-data
             persistentVolumeClaim:
               claimName: voliboli-cronjob-pvc
-        restartPolicy: Never
