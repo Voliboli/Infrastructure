@@ -21,7 +21,8 @@ spec:
           claimName: voliboli-auth-pvc
       containers:
       - name: voliboli
-        image: dorkamotorka/voliboli:1.16
+        image: "dorkamotorka/voliboli:1.18"
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         volumeMounts:
