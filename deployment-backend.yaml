@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voliboli-backend
+  namespace: voliboli
+  labels:
+    app: voliboli-backend
+spec:
+  selector:
+    matchLabels:
+      app: voliboli-backend
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: voliboli-backend
+    spec:
+      containers:
+      - name: voliboli-backend
+        image: "dorkamotorka/voliboli-backend:1.0"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+      imagePullSecrets:
+      - name: regcred

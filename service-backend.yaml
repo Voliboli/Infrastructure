@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: voliboli-backend
+  namespace: voliboli
+  labels:
+    app: voliboli-backend
+spec:
+  ports:
+    - port: 5000
+  selector:
+    app: voliboli-backend

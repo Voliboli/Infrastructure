@@ -24,4 +24,4 @@ spec:
             service:
               name: voliboli
               port:
-                number: 80
+                number: 80 # Port of the service
