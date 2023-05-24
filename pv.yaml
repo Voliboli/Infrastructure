@@ -26,6 +26,22 @@ spec:
   capacity:
     storage: 5Gi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/voliboli/stats"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: voliboli-pv-stat-volume2
+  namespace: voliboli
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
   hostPath:
     path: "/mnt/voliboli/stats"

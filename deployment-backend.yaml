@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: voliboli-backend
-        image: "dorkamotorka/voliboli-backend:1.0"
+        image: "dorkamotorka/voliboli-backend:1.1"
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
