@@ -4,7 +4,7 @@ metadata:
   name: voliboli-sequential-jobs
   namespace: voliboli
 spec:
-  schedule: "*/3 * * * *" #"0 0 * * 4,6" # Run every Wednesday and Saturday at midnight 
+  schedule: "*/1 * * * *" #"0 0 * * 4,6" # Run every Wednesday and Saturday at midnight 
   successfulJobsHistoryLimit: 2
   failedJobsHistoryLimit: 2
   jobTemplate:
@@ -15,10 +15,10 @@ spec:
         spec:
           containers:
           - name: pdfscraping-job
-            image: dorkamotorka/voliboli-pdfscraper:1.3
+            image: dorkamotorka/voliboli-pdfscraper:1.7
             volumeMounts:
             - name: voliboli-data
-              mountPath: "/usr/src/voliboli/stats"
+              mountPath: "/usr/src/voliboli/data/raw"
           restartPolicy: Never
           volumes:
           - name: voliboli-data
