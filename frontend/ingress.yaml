@@ -12,10 +12,10 @@ metadata:
 spec:
   tls:
     - hosts: 
-      - voliboli.lrk.si
+      - voliboli.tjp.lrk.si
       secretName: lets-encrypt-private-key 
   rules:
-    - host: voliboli.lrk.si
+    - host: voliboli.tjp.lrk.si
       http:
         paths:
         - path: /
